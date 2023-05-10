@@ -21,5 +21,8 @@ def start_attack(ip, protocol, threads):
   while True:
     mbSec = round(random.uniform(10, 40), 1)
     hitRate = round(random.uniform(95, 100), 2)
-    print(colored("{}MB sent in the last second to target with a {}% Hitrate on requests.".format(mbSec, hitRate),"green",))
+    if random.randint(1, 1000) < 10:
+      print(colored("Packet failed to send, trying again.","red",))
+    else:
+      print(colored("{}MB sent in the last second to target with a {}% Hitrate on requests.".format(mbSec, hitRate),"green",))
     time.sleep(1)
