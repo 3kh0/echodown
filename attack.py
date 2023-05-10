@@ -14,6 +14,7 @@ import random
 from termcolor import colored
 
 def start_attack(ip, protocol, threads):
+  print()
   print(colored("Target set to " + ip + " using " + protocol + ".", "magenta",))
   print(colored("Starting attack with " + str(threads) + " threads, use CTRL+C to stop at any time", "magenta",))
   print(colored("You can use https://iplocation.io/ping/" + ip + " to check the webserver ping.","magenta",))
@@ -23,7 +24,7 @@ def start_attack(ip, protocol, threads):
     hitRate = round(random.uniform(95, 100), 2)
     curThread = random.randint(1, threads)
     if random.randint(1, 1000) < 10:
-      print(colored("Thread {}: Packet failed to send, trying again.".format(curThread),"red",))
+      print(colored("Thread {}: Detected bad thread, recycling thread. Other threads will not be affected.".format(curThread),"red",))
     else:
       print(colored("Thread {}: {}MB sent in the last second to target with a {}% Hitrate on requests.".format(curThread, mbSec, hitRate),"green",))
-    time.sleep(1)
+    time.sleep(0.1)
