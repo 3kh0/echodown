@@ -44,4 +44,5 @@ def get_thread_num():
     except:
       print(colored("Error: Non-integer value at python userInput, failed to start threads.", "red"))
       print(colored("Exiting due to error, it was your fault :(", "red"))
+      exit("invalid input")
   return threads
