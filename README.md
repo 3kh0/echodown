@@ -11,7 +11,7 @@
 
 Echo Down is a tool that "fakes" a DDoS attack, it provides what a tool would look like in the regard of a DDoS tool but it does not perform the actual attack, all values are randomly generated
 
-**Note: This tool is for educational purposes only. It does not perform a DDoS attack, all information is randomly generated.** If you are trying to perfrom a real DDoS attack, stop right now. That is illegal and can result in criminal charges and lawsuits.
+**Note: This tool is for educational purposes only. It does not perform a DDoS attack, all information is randomly generated.** If you are trying to perfrom a real DDoS attack, stop right now. That is illegal and can result in criminal charges and lawsuits. The creator and developers of Echodown are not responsible for any damage that occurs using this tool.
 
 ## Installation
 
