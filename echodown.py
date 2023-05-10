@@ -21,6 +21,7 @@ def main():
   print()
   print(colored("Starting Echo Down, please hold on!", "red"))
   print(colored("I am sure you are using this for legal purposes - Echo", "red"))
+  print(colored("THIS WILL EAT UP YOUR INTERNET DATA, PRESS CTRL+C TO QUIT!", "yellow"))
   print()
 
   check_connection()
