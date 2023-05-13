@@ -38,16 +38,11 @@ def main():
   print(colored("                      The most powerful DDoS tool out there","red",attrs=["bold"],))
   print("")
 
-  threads = random.randint(5000, 10000)
-
+  IP = get_ip_address()
+  protocol = get_protocol()
+  threads = get_thread_num()
   print(colored("Launched with " + str(threads) + " threads.", "cyan"))
   print()
-
-  ip = get_ip_address()
-  protocol = get_protocol()
-  IP = ip
-  protocol = protocol
-  threads = threads
 
   start_attack(IP, protocol, threads)
 

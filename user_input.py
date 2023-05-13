@@ -7,7 +7,6 @@
 # ╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░  ╚═════╝░░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝░░╚══╝
 #
 #                   https://github.com/3kh0/echodown
-#
 
 import re
 from termcolor import colored
@@ -24,12 +23,6 @@ def get_ip_address():
   return ip
 
 def get_protocol():
-  protocols = {
-    1: "TCP", 
-    2: "UDP", 
-    3: "HTTP"
-  }
-
   print("Select a protocol (TCP, UDP, or HTTP):")
   protocol = input(colored("> ", "yellow"))
     
@@ -39,3 +32,17 @@ def get_protocol():
     exit("invalid input")
     
   return protocol
+def get_thread_num():
+  print("Enter number of threads(default 16): ")
+
+  threads = input(colored("> ", "yellow"))
+  if threads == None:
+    threads = 16
+  else:
+    try:
+      threads = int(threads)
+    except:
+      print(colored("Error: Non-integer value at python userInput, failed to start threads.", "red"))
+      print(colored("Exiting due to error, it was your fault :(", "red"))
+      exit("invalid input")
+  return threads
