@@ -10,6 +10,7 @@
 
 import re
 from termcolor import colored
+from pick import pick # https://github.com/wong2/pick
 
 def get_ip_address():
   print("Enter IP address:")
