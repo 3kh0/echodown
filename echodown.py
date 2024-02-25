@@ -10,21 +10,87 @@
 #
 #      Yes, this tool does not do any DDoSing, that would be illegal!
 
-
 import random
+import time
+import re
 from termcolor import colored
-from connection import check_connection
-from attack import start_attack
-from user_input import get_ip_address, get_protocol, get_thread_num
-from pick import pick # https://github.com/wong2/pick
-from time import sleep
+from halo import Halo
+from termcolor import colored
+
+def get_ip_address():
+  print("Enter IP address:")
+  ip = input(colored("> ", "yellow"))
+
+  if not re.match(r"^(\d{1,3}\.){3}\d{1,3}$", ip):
+    print(colored("Error: Invalid IP address format at python userInput, promise rejected.", "red"))
+    print(colored("Exiting due to error, it was your fault :(", "red"))
+    exit("invalid input")
+    
+  return ip
+
+def get_protocol():
+  print("Select a protocol (TCP, UDP, or HTTP):")
+  protocol = input(colored("> ", "yellow"))
+    
+  if protocol not in ['TCP', 'UDP','HTTP']:
+    print(colored("Error: Invalid protocol at python userInput, promise rejected.", "red"))
+    print(colored("Exiting due to error, it was your fault :(", "red"))
+    exit("invalid input")
+    
+  return protocol
+
+def get_thread_num():
+  print("Enter number of threads(default 16): ")
+
+  threads = input(colored("> ", "yellow"))
+  if threads == None:
+    threads = 16
+  else:
+    try:
+      threads = int(threads)
+    except:
+      print(colored("Error: Non-integer value at python userInput, failed to start threads.", "red"))
+      print(colored("Exiting due to error, it was your fault :(", "red"))
+      exit("invalid input")
+  return threads
+
+def start_attack(ip, protocol, threads):
+  print()
+  print(colored("Target set to " + ip + " using " + protocol + ".", "magenta",))
+  print(colored("Starting attack with " + str(threads) + " threads, use CTRL+C to stop at any time", "magenta",))
+  print(colored("You can use https://iplocation.io/ping/" + ip + " to check the webserver ping.","magenta",))
+  print()
+  while True:
+    mbSec = round(random.uniform(10, 40), 1)
+    hitRate = round(random.uniform(95, 100), 2)
+    curThread = random.randint(1, threads)
+    if random.randint(1, 1000) < 10:
+      print(colored("Thread {}: Detected bad thread, recycling thread. Other threads will not be affected.".format(curThread),"red",))
+    else:
+      print(colored("Thread {}: {}MB sent in the last second to target with a {}% Hitrate on requests.".format(curThread, mbSec, hitRate),"green",))
+    time.sleep(0.1)
+
 def main():
   print()
   print(colored("Starting Echo Down, please hold on!", "red"))
   print(colored("I am sure you are using this for legal purposes - Echo", "red"))
   print()
 
-  check_connection()
+  with Halo(text=colored("Updating", "yellow"), spinner="dots") as h1:
+    time.sleep(0.5)
+    h1.succeed(colored(" Up to date", "green"))
+
+  with Halo(text=colored("Starting Proxy", "yellow"), spinner="dots") as h7:
+    time.sleep(0.5)
+    h7.succeed(colored(" Proxy online", "green"))
+
+  with Halo(text=colored("Starting Hosted Threads", "yellow"), spinner="dots") as h8:
+    time.sleep(0.5)
+    h8.succeed(colored(" Hosted Threads online", "green"))
+
+  with Halo(text=colored("Starting!", "yellow"), spinner="dots") as h10:
+    time.sleep(0.5)
+    h10.succeed(colored(" Start", "green"))
 
   print(colored('''
                 
@@ -36,15 +102,27 @@ def main():
        ╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░  ╚═════╝░░╚════╝░░░░╚═╝░░░╚═╝░░╚═╝░░╚══╝
        
 ''', 'red'))
-  print(colored("                      The most powerful DDoS tool out there","red",attrs=["bold"],))
+  print(colored("                 The most powerful DDoS tool out there","red",attrs=["bold"],))
   print()
   menu_selections = [
     'Start',
     'Credits',
     'Exit'
   ]
-  sleep(2)
-  menu_selection = pick(menu_selections, 'Pick an option...', '> ')[0]
+  print('Pick an option...')
+  for i, option in enumerate(menu_selections, start=1):
+    print(f'{i}. {option}')
+  menu_selection = input('> ')
+  if menu_selection == '1':
+    menu_selection = 'Start'
+  elif menu_selection == '2':
+    menu_selection = 'Credits'
+  elif menu_selection == '3':
+    menu_selection = 'Exit'
+  else:
+    print("Invalid option selected")
+    exit(1)
+
   match menu_selection:
     case 'Start':
       ip = get_ip_address()
@@ -54,19 +132,20 @@ def main():
       print()
       start_attack(ip, protocol, threads)
     case 'Credits':
-      print(colored('                        ECHODOWN', attrs=['bold']))
+      print(colored('        ECHODOWN', 'red', attrs=['bold']))
       print(colored('''
-            Star us on github!
-            https://github.com/3kh0/echodown
-            
-            Developers
-            @3kh0
-            @aeiea
-            @RuralAnemone
-            ''', 'green'))
+    Star us on github!
+    https://github.com/3kh0/echodown
+
+    Developers
+    @3kh0
+    @aeiea
+    @RuralAnemone
+    ''', 'green'))
+      exit(0)
     case 'Exit':
       exit(0)
-  
+
 
 if __name__ == "__main__":
   main()
