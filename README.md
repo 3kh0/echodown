@@ -1,4 +1,4 @@
-![logo](logo.png)
+![logo](src/logo.png)
 
 - [Echo Down](#echo-down)
   * [Installation](#installation)
@@ -26,7 +26,7 @@ To use Echo Down, you will need to install the following dependencies:
 
 You can install all of these dependencies using pip:
 ```bash
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ The tool will then ask you to enter the IP address of the target server and the 
 
 Once you have entered this information, Echo Down will most definitely start sending a very real and high volume of traffic to the target server. You can use CTRL+C to stop the "attack" at any time.
 
-![logo](terminal.png)
+![logo](src/terminal.png)
 
 ## Contributing
 

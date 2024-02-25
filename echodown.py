@@ -17,62 +17,25 @@ from termcolor import colored
 from halo import Halo
 from termcolor import colored
 
-def get_ip_address():
-  print("Enter IP address:")
-  ip = input(colored("> ", "yellow"))
-
-  if not re.match(r"^(\d{1,3}\.){3}\d{1,3}$", ip):
-    print(colored("Error: Invalid IP address format at python userInput, promise rejected.", "red"))
-    print(colored("Exiting due to error, it was your fault :(", "red"))
-    exit("invalid input")
-    
-  return ip
-
-def get_protocol():
-  print("Select a protocol (TCP, UDP, or HTTP):")
-  protocol = input(colored("> ", "yellow"))
-    
-  if protocol not in ['TCP', 'UDP','HTTP']:
-    print(colored("Error: Invalid protocol at python userInput, promise rejected.", "red"))
-    print(colored("Exiting due to error, it was your fault :(", "red"))
-    exit("invalid input")
-    
-  return protocol
-
-def get_thread_num():
-  print("Enter number of threads(default 16): ")
-
-  threads = input(colored("> ", "yellow"))
-  if threads == None:
-    threads = 16
-  else:
-    try:
-      threads = int(threads)
-    except:
-      print(colored("Error: Non-integer value at python userInput, failed to start threads.", "red"))
-      print(colored("Exiting due to error, it was your fault :(", "red"))
-      exit("invalid input")
-  return threads
-
-def start_attack(ip, protocol, threads):
+def start_attack(ip, protocol):
   print()
   print(colored("Target set to " + ip + " using " + protocol + ".", "magenta",))
-  print(colored("Starting attack with " + str(threads) + " threads, use CTRL+C to stop at any time", "magenta",))
-  print(colored("You can use https://iplocation.io/ping/" + ip + " to check the webserver ping.","magenta",))
+  print(colored("Starting attack with 16 threads, use CTRL+C to stop at any time", "magenta",))
   print()
   while True:
     mbSec = round(random.uniform(10, 40), 1)
     hitRate = round(random.uniform(95, 100), 2)
-    curThread = random.randint(1, threads)
+    curThread = random.randint(1, 16)
     if random.randint(1, 1000) < 10:
-      print(colored("Thread {}: Detected bad thread, recycling thread. Other threads will not be affected.".format(curThread),"red",))
+      print(colored("Thread {}: Thread underpreforming or not responding, restarting...".format(curThread),"red",))
+      print(colored("Thread {}: Thread successfully restarted. Attacking target...".format(curThread),"green",))
     else:
       print(colored("Thread {}: {}MB sent in the last second to target with a {}% Hitrate on requests.".format(curThread, mbSec, hitRate),"green",))
     time.sleep(0.1)
 
 def main():
   print()
-  print(colored("Starting Echo Down, please hold on!", "red"))
+  print(colored("Starting Echo Down!", "red"))
   print(colored("I am sure you are using this for legal purposes - Echo", "red"))
   print()
 
@@ -120,17 +83,26 @@ def main():
   elif menu_selection == '3':
     menu_selection = 'Exit'
   else:
-    print("Invalid option selected")
-    exit(1)
+    print(colored("Error: Unknown response at python userInput, promise rejected", "red"))
+    exit("userInput void")
 
   match menu_selection:
     case 'Start':
-      ip = get_ip_address()
-      protocol = get_protocol()
-      threads = get_thread_num()
-      print(colored("Launched with " + str(threads) + " threads.", "cyan"))
+      print("Enter IP address:")
+      ip = input(colored("> ", "yellow"))
+      if not re.match(r"^(\d{1,3}\.){3}\d{1,3}$", ip):
+        print(colored("Error: Invalid IP address format at python userInput, promise rejected", "red"))
+        exit("userInput void")
+
+      print("Select a protocol (TCP, UDP, or HTTP):")
+      protocol = input(colored("> ", "yellow"))
+      if protocol not in ['TCP', 'UDP','HTTP']:
+        print(colored("Error: Invalid protocol at python userInput, promise rejected", "red"))
+        exit("userInput void")
+
+      print(colored("Launching with 16 threads.", "cyan"))
       print()
-      start_attack(ip, protocol, threads)
+      start_attack(ip, protocol)
     case 'Credits':
       print(colored('        ECHODOWN', 'red', attrs=['bold']))
       print(colored('''
