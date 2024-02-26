@@ -47,10 +47,6 @@ def main():
     time.sleep(0.5)
     h7.succeed(colored(" Proxy online", "green"))
 
-  with Halo(text=colored("Starting Hosted Threads", "yellow"), spinner="dots") as h8:
-    time.sleep(0.5)
-    h8.succeed(colored(" Hosted Threads online", "green"))
-
   with Halo(text=colored("Starting!", "yellow"), spinner="dots") as h10:
     time.sleep(0.5)
     h10.succeed(colored(" Start", "green"))
