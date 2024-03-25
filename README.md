@@ -23,6 +23,7 @@ To use Echo Down, you will need to install the following dependencies:
 - time
 - random
 - re
+- requests
 
 You can install all of these dependencies using pip:
 ```bash
